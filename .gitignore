@@ -10,6 +10,6 @@ npm-debug.log
 # Nuxt generate
 dist
 
-wordpress-docker-install/backup/wp-content/themes
-wordpress-docker-install/backup/wp-content/upgrade
+wp-backup/wp-content/themes
+wp-backup/wp-content/upgrade
 
