@@ -36,7 +36,7 @@ module.exports = {
   generate: {
     routes: function() {
       return axios
-        .get("http://localhost:5000/wp-json/wp/v2/posts?_embed")
+        .get("http://localhost:5000/wp-json/wp/v2/posts?per_page=100&_embed")
         .then(res => {
           return _.map(res.data, function(post, key) {
             return `/news/${post.slug}`;

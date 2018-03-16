@@ -24,7 +24,7 @@ const createStore = () => {
 
     actions: {
       async getPosts({ commit }) {
-        let { data } = await axios.get(`posts?_embed`);
+        let { data } = await axios.get(`posts?per_page=100&_embed`);
         commit("setPosts", data);
       },
       async getPost({ commit, store }, id) {
@@ -37,20 +37,17 @@ const createStore = () => {
         let { data } = await axios.get(`posts?slug=${slug}&_embed`);
         commit("setCurrentPost", data);
       },
-      async nuxtServerInit(
-        { commit },
-        { store, isClient, isServer, route, params }
-      ) {
-        if (isServer) {
-          let { data } = await axios.get("posts?_embed");
+      async nuxtServerInit({ commit }, { store, route, params }) {
+        if (process.server) {
+          let { data } = await axios.get("posts?per_page=100&_embed");
           commit("setPosts", data);
         }
-        if (isServer && params.id) {
+        if (process.server && params.id) {
           let { data } = await axios.get(`posts/${params.id}?_embed`);
           commit("setCurrentPost", data);
         }
 
-        if (isServer && params.slug) {
+        if (process.server && params.slug) {
           let { data } = await axios.get(`posts?slug=${params.slug}&_embed`);
           commit("setCurrentPost", data);
         }
